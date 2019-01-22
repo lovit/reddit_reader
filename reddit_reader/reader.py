@@ -19,6 +19,26 @@ def acceptable(path):
         return True
     return False
 
+def match_date(paths, yymm_b, yymm_e):
+    """
+    Arguments
+    ---------
+    paths : list of str
+        List of file paths.
+    yymm_b : str
+        Year-month of begin date
+        e.g) 2017-01
+    yymm_e : str
+        Year-month of end date
+        e.g) 2017-03
+
+    Returns
+    -------
+    list of date-matched paths
+    """
+
+    return sorted([path for path in paths if yymm_b <= path.split('/')[-1][3:10] <= yymm_e])
+
 class SubmissionReader:
     def __init__(self, directory):
         self.directory = directory
