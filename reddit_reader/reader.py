@@ -67,6 +67,19 @@ class RedditFile:
                 yield doc
 
 class SubmissionReader:
+    """
+    Reddit Submission Reader from downloaded JSON format files
+
+    directory : str
+        Directory path
+    verbose : Boolean
+        If True verbose mode on. Print current search status
+        Default is True
+    debug : Boolean
+        If True, search within only 1000 lines in each file
+        Default is False
+    """
+
     def __init__(self, directory, verbose=True, debug=False):
         self.directory = directory
         self.verbose = verbose
@@ -122,7 +135,7 @@ class SubmissionReader:
                 )
                 if not satisfy_flag:
                     continue
-                yield satisfy_flag
+                yield submission
                 n_yield += 1
 
 def satisfy(submission, utc_b, utc_e,
