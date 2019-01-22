@@ -128,25 +128,29 @@ class SubmissionReader:
             month = int(end_date[5:7]),
             day = int(end_date[8:10])).timestamp()
 
+        # use lower case
+        query_term_ = query_term.lower()
+
         n_yield = 0
         n_paths = len(paths)
         for i_path, path in enumerate(paths):
             submissions = RedditFile(path)
             for i_subm, submission_strf in enumerate(submissions):
-                if self.debug and i_subm >= 1000:
+                if self.debug and i_subm >= 10001:
                     break
-                if i_subm % 1000 == 0:
-                    args = (i_path, n_paths, i_subm, n_yield)
-                    print('\r{} / {} files, from {} candidiates, yield {} submissions'.format(*args), end='')
+                if i_subm % 10000 == 0:
+                    args = (i_path, n_paths, i_subm, n_yield, ' '*20)
+                    print('\r{} / {} files, from {} candidiates, yield {} submissions{}'.format(*args), end='')
                 submission = parser(submission_strf)
                 satisfy_flag = satisfy(
                     submission, utc_b, utc_e,
-                    subreddit, query_term, author
+                    subreddit, query_term_, author
                 )
                 if not satisfy_flag:
                     continue
                 yield submission
                 n_yield += 1
+        print('\ndone')
 
 def satisfy(submission, utc_b, utc_e,
     subreddit, query_term, author):
@@ -165,8 +169,9 @@ def satisfy(submission, utc_b, utc_e,
             return False
 
     if isinstance(query_term, str):
-        selftext = submission.get('selftext', '')
-        if not (query_term in selftext):
+        selftext = submission.get('selftext', '').lower()
+        title = submission.get('title', '').lower()
+        if not (query_term in selftext or query_term in title):
             return False
 
     if isinstance(author, str):
