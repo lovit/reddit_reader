@@ -67,9 +67,10 @@ class RedditFile:
                 yield doc
 
 class SubmissionReader:
-    def __init__(self, directory, verbose=True):
+    def __init__(self, directory, verbose=True, debug=False):
         self.directory = directory
         self.verbose = verbose
+        self.debug = debug
         paths = sorted(glob(directory+'/*'))
         self.paths = [path for path in paths if acceptable(path)]
 
@@ -109,9 +110,11 @@ class SubmissionReader:
         for i_path, path in enumerate(paths):
             submissions = RedditFile(path)
             for i_subm, submission_strf in enumerate(submissions):
-                if i_sumb % 1000 == 0:
+                if self.debug and i_subm >= 1000:
+                    break
+                if i_subm % 1000 == 0:
                     args = (i_path, n_paths, i_subm, n_yield)
-                    print('\r{} / {} files, from {} candidiates, yield {} submissions'.format(*args))
+                    print('\r{} / {} files, from {} candidiates, yield {} submissions'.format(*args), end='')
                 submission = parser(submission_strf)
                 satisfy_flag = satisfy(
                     submission, utc_b, utc_e,
