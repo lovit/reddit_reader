@@ -92,10 +92,20 @@ class SubmissionReader:
         Arguments
         ---------
         begin_date : str
+            `yyyy-mm-dd` format. For example 2017-01-01
         end_date : str
-        subreddit : str
-        query_term : str
+            `yyyy-mm-dd` format. For example 2017-01-01
+        subreddit : str or None
+            Subreddit name. Ignore whether character is capital or lower
+            If `subreddit` is None, it retrieves all subreddits.
+            Default is None.
+        query_term : str or None
+            A query term that the selftext have to include.
+            If the `query_term` is None, it dosent matter selftext
+            Default is None
         author : str
+            Author id
+            If the `author` is None, it dosent matter author
 
         Yield
         -----
