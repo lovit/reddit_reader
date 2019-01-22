@@ -10,6 +10,7 @@ build/
 
 # Experiments
 tmp/
+*.sh
 
 # Jupyter notebook
 .ipynb_checkpoints/
