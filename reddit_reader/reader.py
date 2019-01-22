@@ -19,7 +19,7 @@ def acceptable(path):
         return True
     return False
 
-class RedditSubmissionReader:
+class SubmissionReader:
     def __init__(self, directory):
         self.directory = directory
         self.paths = sorted(glob(directory+'/*'))

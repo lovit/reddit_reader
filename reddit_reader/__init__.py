@@ -1,2 +1,2 @@
 from .reader import parser
-from .reader import RedditSubmissionReader
+from .reader import SubmissionReader
