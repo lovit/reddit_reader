@@ -129,7 +129,10 @@ class SubmissionReader:
             day = int(end_date[8:10])).timestamp()
 
         # use lower case
-        query_term_ = query_term.lower()
+        if query_term is None:
+            query_term_ = None
+        else:
+            query_term_ = query_term.lower()
 
         n_yield = 0
         n_paths = len(paths)
