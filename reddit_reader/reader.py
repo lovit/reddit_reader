@@ -142,7 +142,7 @@ class SubmissionReader:
                 if self.debug and i_subm >= 10001:
                     break
                 if i_subm % 10000 == 0:
-                    args = (i_path, n_paths, i_subm, n_yield, ' '*20)
+                    args = (i_path+1, n_paths, i_subm, n_yield, ' '*20)
                     print('\r{} / {} files, from {} candidiates, yield {} submissions{}'.format(*args), end='')
                 submission = parser(submission_strf)
                 satisfy_flag = satisfy(
